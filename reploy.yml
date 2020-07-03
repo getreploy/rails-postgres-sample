@@ -1,0 +1,29 @@
+cache:
+  - file: Gemfile.lock
+    path: .bundle
+services:
+  rails:
+    port: 3000
+    image: reploy/ruby:2.6.3
+    environment:
+      GEM_HOME: "/local/.bundle"
+      BUNDLE_PATH: "/local/.bundle"
+    build:
+      - bundle install
+    serve:
+      - yarn --verify-tree
+      # - sleep 10
+      - bundle exec sidekiq -d
+      - bundle exec rails s -b 0.0.0.0
+  postgres:
+    port: 5432
+    runtime: postgres
+    do-not-expose: true
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  redis:
+    do-not-expose: true
+    port: 6379
+    runtime: redis
