@@ -16,6 +16,7 @@ services:
       - bundle exec rails s -b 0.0.0.0
   sidekiq:
     do-not-expose: true
+    port: 3001
     image: reploy/ruby:2.6.3
     environment:
       GEM_HOME: "/local/.bundle"
