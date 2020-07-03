@@ -12,7 +12,7 @@ services:
       - bundle install
     serve:
       # - yarn --verify-tree
-      - rake db:migrate
+      - bundle exec rake db:migrate
       - bundle exec rails s -b 0.0.0.0
   sidekiq:
     do-not-expose: true
@@ -25,7 +25,7 @@ services:
       - bundle install
     serve:
       # - yarn --verify-tree
-      - rake db:migrate
+      - bundle exec rake db:migrate
       - bundle exec sidekiq  
   postgres:
     port: 5432
