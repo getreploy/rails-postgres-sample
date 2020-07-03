@@ -11,10 +11,21 @@ services:
     build:
       - bundle install
     serve:
-      - yarn --verify-tree
-      # - sleep 10
-      - bundle exec sidekiq -d
+      # - yarn --verify-tree
+      - rake db:migrate
       - bundle exec rails s -b 0.0.0.0
+  sidekiq:
+    do-not-expose: true
+    image: reploy/ruby:2.6.3
+    environment:
+      GEM_HOME: "/local/.bundle"
+      BUNDLE_PATH: "/local/.bundle"
+    build:
+      - bundle install
+    serve:
+      # - yarn --verify-tree
+      - rake db:migrate
+      - bundle exec sidekiq  
   postgres:
     port: 5432
     runtime: postgres
