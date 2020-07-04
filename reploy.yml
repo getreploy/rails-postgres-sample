@@ -10,8 +10,8 @@ services:
       BUNDLE_PATH: "/local/.bundle"
     build:
       - bundle install
-    serve:
       - yarn --verify-tree
+    serve:
       - bundle exec rake db:create
       - bundle exec rails s -b 0.0.0.0
   sidekiq:
@@ -23,8 +23,8 @@ services:
       BUNDLE_PATH: "/local/.bundle"
     build:
       - bundle install
-    serve:
       - yarn --verify-tree
+    serve:
       - bundle exec rake db:create
       - bundle exec sidekiq  
   postgres:
